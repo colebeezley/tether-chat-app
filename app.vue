@@ -1,20 +1,22 @@
 <script setup>
-const creds = reactive({
+let user = reactive({
   email: "test@test.test",
   password: "password",
 });
 
+const creds = ref();
+
 const signIn = async () => {
-  let res = await signInUser(creds.email, creds.password);
-  console.dir(res);
+  creds.value = await signInUser(user.email, user.password);
+  console.log(creds.value);
 };
 const signUp = async () => {
-  let res = await createUser(creds.email, creds.password);
-  console.log("account created: " + res);
+  creds.value = await createUser(user.email, user.password);
+  console.log("account created: " + creds.value);
 };
 const signOut = async () => {
-  let res = await signOutUser();
-  console.log("signed out: " + res);
+  creds.value = await signOutUser();
+  console.log("signed out: " + creds.value);
 };
 </script>
 
@@ -22,6 +24,9 @@ const signOut = async () => {
   <div>
     <button class="button" @click="signIn">Sign in</button>
     <button class="button" @click="signOut">Sign out</button>
+    <pre>
+      {{ creds }}
+    </pre>
     <NuxtPage />
   </div>
 </template>
