@@ -1,4 +1,3 @@
-import { initializeApp } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -30,7 +29,6 @@ export const signInUser = async (email: string, password: string) => {
   ).catch((error) => {
     console.log(error);
   });
-
   return userCreds;
 };
 
@@ -48,4 +46,10 @@ export const initUser = async () => {
       // ...
     }
   });
+};
+
+export const signOutUser = async () => {
+  const auth = getAuth();
+  const result = await auth.signOut();
+  return result;
 };
