@@ -20,13 +20,11 @@ const signOut = async () => {
 <template>
   <ClientOnly>
     <div>
-      <p><NuxtLink to="/secret">Go to Secret Page</NuxtLink></p>
+      <p><NuxtLink to="/profile">Go to Profile</NuxtLink></p>
       <button class="button" @click="signIn" v-if="!firebaseUser">Sign in</button>
       <button class="button" @click="signOut" v-else>Sign out</button>
       <div v-if="firebaseUser">
-        <pre>
-      {{ firebaseUser }}
-        </pre>
+        <h3>You are signed in</h3>
       </div>
       <div v-else>
         <h3>User signed out</h3>

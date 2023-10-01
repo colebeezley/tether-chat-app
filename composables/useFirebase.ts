@@ -29,7 +29,8 @@ export const initUser = async () => {
   const firebaseUser = useFirebaseUser()
   firebaseUser.value = auth.currentUser
 
-  const authChange = await onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, (user) => {
+    console.log('state changed!')
     if (user) {
       // signin
     } else {
