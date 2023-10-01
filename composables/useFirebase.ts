@@ -3,54 +3,44 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-} from "firebase/auth";
+} from 'firebase/auth'
 
 export const createUser = async (email: string, password: string) => {
-  const auth = getAuth();
+  const auth = getAuth()
 
-  const userCreds = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  ).catch((error) => {
-    console.log(error);
-  });
+  const userCreds = await createUserWithEmailAndPassword(auth, email, password).catch((error) => {
+    console.log(error)
+  })
 
-  return userCreds;
-};
+  return userCreds
+}
 
 export const signInUser = async (email: string, password: string) => {
-  const auth = getAuth();
+  const auth = getAuth()
 
-  const userCreds = await signInWithEmailAndPassword(
-    auth,
-    email,
-    password
-  ).catch((error) => {
-    console.log(error);
-  });
-  return userCreds;
-};
+  const userCreds = await signInWithEmailAndPassword(auth, email, password).catch((error) => {
+    console.log(error)
+  })
+  return userCreds
+}
 
 export const initUser = async () => {
-  const auth = getAuth();
-  const firebaseUser = useFirebaseUser();
-  firebaseUser.value = auth.currentUser;
+  const auth = getAuth()
+  const firebaseUser = useFirebaseUser()
+  firebaseUser.value = auth.currentUser
 
   const authChange = await onAuthStateChanged(auth, (user) => {
     if (user) {
       // signin
-      console.log(user);
     } else {
       // signout
-      console.log(user);
     }
-    firebaseUser.value = user;
-  });
-};
+    firebaseUser.value = user
+  })
+}
 
 export const signOutUser = async () => {
-  const auth = getAuth();
-  const result = await auth.signOut();
-  return result;
-};
+  const auth = getAuth()
+  const result = await auth.signOut()
+  return result
+}
