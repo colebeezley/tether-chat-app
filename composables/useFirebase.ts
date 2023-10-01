@@ -37,7 +37,6 @@ export const initUser = async () => {
   firebaseUser.value = auth.currentUser
 
   onAuthStateChanged(auth, (user) => {
-    console.log('state changed!')
     if (user) {
       // signin
     } else {
@@ -45,6 +44,12 @@ export const initUser = async () => {
     }
     firebaseUser.value = user
   })
+}
+
+export const initStore = async (store: any) => {
+  const auth = getAuth()
+  const firebaseStore = useFirebaseStore()
+  firebaseStore.value = store
 }
 
 export const signOutUser = async () => {
