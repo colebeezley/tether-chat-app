@@ -3,14 +3,21 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  updateProfile,
 } from 'firebase/auth'
 
-export const createUser = async (email: string, password: string) => {
+export const createUser = async (username: string, email: string, password: string) => {
   const auth = getAuth()
 
   const userCreds = await createUserWithEmailAndPassword(auth, email, password).catch((error) => {
     console.log(error)
   })
+
+  if (userCreds) {
+    updateProfile(auth.currentUser!, {
+      displayName: username,
+    })
+  }
 
   return userCreds
 }
