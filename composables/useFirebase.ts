@@ -46,12 +46,6 @@ export const initUser = async () => {
   })
 }
 
-export const initStore = async (store: any) => {
-  const auth = getAuth()
-  const firebaseStore = useFirebaseStore()
-  firebaseStore.value = store
-}
-
 export const signOutUser = async () => {
   const auth = getAuth()
   const result = await auth.signOut()

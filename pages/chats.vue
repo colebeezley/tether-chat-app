@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ['auth'],
+})
+
 import { updateUserChat } from '~/composables/updateChat'
 
 const firebaseUser = useFirebaseUser().value
@@ -6,14 +10,19 @@ const message = ref('')
 const target = ref('you')
 
 const addChat = async () => {
-  await updateUserChat(firebaseUser?.displayName, target.value, message.value).catch((err) => {
+  await updateUserChat(firebaseUser.displayName, target.value, message.value).catch((err) => {
     console.log('error: ', err)
   })
+}
+
+const goToProfile = () => {
+  navigateTo('/profile')
 }
 </script>
 
 <template>
   <div>
+    <button class="button" @click="goToProfile">Profile</button><br />
     <label for="message">Message:</label>
     <input type="text" id="message" name="message" v-model="message" required /><br />
     <label for="toUser">To:</label>

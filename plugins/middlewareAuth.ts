@@ -1,5 +1,6 @@
 export default defineNuxtPlugin(() => {
   addRouteMiddleware('auth', () => {
+    initUser()
     const { $auth }: any = useNuxtApp()
 
     if (!$auth?.currentUser?.uid) {
@@ -7,7 +8,7 @@ export default defineNuxtPlugin(() => {
     }
   })
 
-  addRouteMiddleware('loggedIn', () => {
+  addRouteMiddleware('loggedOut', () => {
     const { $auth }: any = useNuxtApp()
 
     if ($auth?.currentUser?.uid) {
