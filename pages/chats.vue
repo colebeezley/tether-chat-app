@@ -45,11 +45,11 @@ const goToProfile = () => {
 
           <div id="loadchats" class="field">
             <div class="field">
+              <pre>{{ userChatOptions }}</pre>
               <label for="" class="label">User messages to load</label>
               <div class="control">
                 <input class="input" v-model="loadTarget" required />
               </div>
-              <pre>{{ userChatOptions }}</pre>
             </div>
             <div class="field">
               <button @click="loadNewChats" class="button is-success">Load</button>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { parse } from 'dotenv'
+
 definePageMeta({
   middleware: ['auth'],
 })
@@ -23,7 +25,7 @@ const goToChats = () => {
             <button @click="goToChats" class="button is-success">Chats</button>
           </div>
           <div class="field">
-            <pre>{{ firebaseUser }}</pre>
+            <pre>{{ firebaseUser?.providerData }}</pre>
           </div>
           <div class="field">
             <button @click="signOut" class="button is-danger">Sign out</button>
