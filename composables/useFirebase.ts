@@ -43,7 +43,11 @@ export const initUser = async () => {
       // signout
     }
     firebaseUser.value = user
-    localStorage.setItem('user', firebaseUser.value)
+    if (firebaseUser.value && firebaseUser.value !== 'null') {
+      localStorage.setItem('user', firebaseUser.value)
+    } else {
+      localStorage.removeItem('user')
+    }
   })
 }
 
