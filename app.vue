@@ -2,10 +2,16 @@
 
 <template>
   <div>
-    <NuxtPage />
+    <section class="hero is-primary is-fullheight">
+      <div class="hero-body">
+        <div class="container">
+          <NuxtPage />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <style>
-@import "bulma/css/bulma";
+@import 'bulma/css/bulma';
 </style>

@@ -22,18 +22,28 @@ const signOut = async () => {
 
 <template>
   <ClientOnly>
-    <div>
-      <button class="button" @click="goToLogin" v-if="!firebaseUser">Sign in</button>
-      <button class="button" @click="goToSignup" v-if="!firebaseUser">Create account</button>
-      <div v-if="firebaseUser">
-        <h3>You are signed in</h3>
-        <button class="button" @click="goToProfile">Profile</button>
-        <button class="button" @click="signOut">Sign out</button>
+    <div class="columns is-centered">
+      <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+        <div class="box">
+          <div class="title has-text-black">Welcome to Tether!</div>
+          <div v-if="!firebaseUser">
+            <div class="field">
+              <button @click="goToSignup" class="button is-success">Create account</button>
+            </div>
+            <div class="field">
+              <button @click="goToLogin" class="button is-success">Go to Login</button>
+            </div>
+          </div>
+          <div v-else="firebaseUser">
+            <div class="field">
+              <button @click="goToProfile" class="button is-success">Go to your Profile</button>
+            </div>
+            <div class="field">
+              <button @click="signOut" class="button is-danger">Sign out</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div v-else>
-        <h3>User signed out</h3>
-      </div>
-      <NuxtPage />
     </div>
   </ClientOnly>
 </template>
