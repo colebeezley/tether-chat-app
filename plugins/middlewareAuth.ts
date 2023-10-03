@@ -1,18 +1,23 @@
 export default defineNuxtPlugin(() => {
   addRouteMiddleware('auth', () => {
     initUser()
-    const { $auth }: any = useNuxtApp()
 
-    if (!$auth?.currentUser?.uid) {
-      return navigateTo('/')
+    if (typeof window !== 'undefined') {
+      const localUserData = localStorage.getItem('user')
+
+      if (!localUserData) {
+        return navigateTo('/')
+      }
     }
   })
 
   addRouteMiddleware('loggedOut', () => {
-    const { $auth }: any = useNuxtApp()
+    if (typeof window !== 'undefined') {
+      const localUserData = localStorage.getItem('user')
 
-    if ($auth?.currentUser?.uid) {
-      return navigateTo('/profile')
+      if (localUserData) {
+        return navigateTo('/profile')
+      }
     }
   })
 })

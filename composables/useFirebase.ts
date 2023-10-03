@@ -43,11 +43,13 @@ export const initUser = async () => {
       // signout
     }
     firebaseUser.value = user
+    localStorage.setItem('user', firebaseUser.value)
   })
 }
 
 export const signOutUser = async () => {
   const auth = getAuth()
   const result = await auth.signOut()
+  localStorage.removeItem('user')
   return result
 }
