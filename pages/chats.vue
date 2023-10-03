@@ -3,12 +3,13 @@ definePageMeta({
   middleware: ['strict-auth'],
 })
 
+import { getUserChatsWithTarget } from '~/composables/getUserChats'
 import { updateUserChat } from '~/composables/updateChat'
 
 const firebaseUser = useFirebaseUser().value
-const message = ref('')
-const target = ref('you')
-const loadTarget = ref('')
+const message: Ref<string> = ref('')
+const target: Ref<string> = ref('you')
+const loadTarget: Ref<string> = ref('')
 
 const addChat = async () => {
   await updateUserChat(firebaseUser.displayName, target.value, message.value).catch((err) => {
@@ -16,11 +17,14 @@ const addChat = async () => {
   })
 }
 
-const previousUserChats: [String] = await getUserChats(firebaseUser?.displayName, 'you')
+let userChatOptions: object = await getUserChats(firebaseUser?.displayName)
+userChatOptions = Object.keys(userChatOptions)
+
+const previousUserChats: [String] = await getUserChatsWithTarget(firebaseUser?.displayName, 'you')
 let userChats = previousUserChats
 
 const loadNewChats = async () => {
-  userChats = await getUserChats(firebaseUser?.displayName, loadTarget.value)
+  userChats = await getUserChatsWithTarget(firebaseUser?.displayName, loadTarget.value)
   loadTarget.value = ''
 }
 
@@ -45,6 +49,7 @@ const goToProfile = () => {
               <div class="control">
                 <input class="input" v-model="loadTarget" required />
               </div>
+              <pre>{{ userChatOptions }}</pre>
             </div>
             <div class="field">
               <button @click="loadNewChats" class="button is-success">Load</button>
