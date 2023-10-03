@@ -8,6 +8,7 @@ import { updateUserChat } from '~/composables/updateChat'
 const firebaseUser = useFirebaseUser().value
 const message = ref('')
 const target = ref('you')
+const loadTarget = ref('')
 
 const addChat = async () => {
   await updateUserChat(firebaseUser.displayName, target.value, message.value).catch((err) => {
@@ -15,7 +16,13 @@ const addChat = async () => {
   })
 }
 
-const userChats = await getUserChats(firebaseUser?.displayName, 'you')
+const previousUserChats: [String] = await getUserChats(firebaseUser?.displayName, 'you')
+let userChats = previousUserChats
+
+const loadNewChats = async () => {
+  userChats = await getUserChats(firebaseUser?.displayName, loadTarget.value)
+  loadTarget.value = ''
+}
 
 const goToProfile = () => {
   navigateTo('/profile')
@@ -27,13 +34,24 @@ const goToProfile = () => {
     <div class="columns is-centered">
       <div class="column is-10-tablet is-8-desktop is-6-widescreen">
         <div class="box">
-          <div class="title has-text-black">Your Profile</div>
+          <div class="title has-text-black">Chats</div>
           <div class="field">
             <button @click="goToProfile" class="button is-success">Profile</button>
           </div>
 
-          <div class="field">
-            <pre>{{ userChats }}</pre>
+          <div id="loadchats" class="field">
+            <div class="field">
+              <label for="" class="label">User messages to load</label>
+              <div class="control">
+                <input class="input" v-model="loadTarget" required />
+              </div>
+            </div>
+            <div class="field">
+              <button @click="loadNewChats" class="button is-success">Load</button>
+            </div>
+            <div class="field">
+              <pre>{{ userChats }}</pre>
+            </div>
           </div>
 
           <div class="field">

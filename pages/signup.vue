@@ -28,6 +28,20 @@ const goToLogin = () => {
         <div class="box">
           <div class="title has-text-black">Signup</div>
           <div class="field">
+            <label for="" class="label">Username</label>
+            <div class="control">
+              <input
+                type="text"
+                placeholder="e.g. username"
+                class="input"
+                id="username"
+                name="username"
+                v-model="user.username"
+                required
+              />
+            </div>
+          </div>
+          <div class="field">
             <label for="" class="label">Email</label>
             <div class="control">
               <input

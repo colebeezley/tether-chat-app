@@ -8,7 +8,6 @@ export const updateUserChat = async (username: string, target: string, message: 
     let docSnap = await getDoc(docRef)
 
     if (docSnap.data() === undefined) {
-      console.log('setting default')
       await setDoc(docRef, {})
       docSnap = await getDoc(docRef)
     }

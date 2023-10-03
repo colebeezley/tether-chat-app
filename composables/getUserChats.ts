@@ -1,6 +1,6 @@
 import { doc, getDoc, serverTimestamp, updateDoc, setDoc, addDoc, collection } from 'firebase/firestore'
 
-export const getUserChats = async (username: string, target: string): Promise<[]> => {
+export const getUserChats = async (username: string, target: string): Promise<[String]> => {
   try {
     const { $firestore }: any = useNuxtApp()
     const docRef = doc($firestore, 'chats', username)
@@ -8,7 +8,6 @@ export const getUserChats = async (username: string, target: string): Promise<[]
     let docSnap = await getDoc(docRef)
 
     if (docSnap.data() === undefined) {
-      console.log('setting default')
       await setDoc(docRef, {})
       docSnap = await getDoc(docRef)
     }
@@ -20,6 +19,6 @@ export const getUserChats = async (username: string, target: string): Promise<[]
   } catch (err) {
     console.log('error: ', err)
 
-    return []
+    return ['']
   }
 }
