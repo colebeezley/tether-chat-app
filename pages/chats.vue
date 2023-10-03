@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['auth'],
+  middleware: ['strict-auth'],
 })
 
 import { updateUserChat } from '~/composables/updateChat'
@@ -15,18 +15,44 @@ const addChat = async () => {
   })
 }
 
+const userChats = await getUserChats(firebaseUser?.displayName, 'you')
+
 const goToProfile = () => {
   navigateTo('/profile')
 }
 </script>
 
 <template>
-  <div>
-    <button class="button" @click="goToProfile">Profile</button><br />
-    <label for="message">Message:</label>
-    <input type="text" id="message" name="message" v-model="message" required /><br />
-    <label for="toUser">To:</label>
-    <input type="text" id="toUser" name="toUser" v-model="target" required /><br />
-    <button class="button" @click="addChat">Send message</button>
-  </div>
+  <ClientOnly>
+    <div class="columns is-centered">
+      <div class="column is-10-tablet is-8-desktop is-6-widescreen">
+        <div class="box">
+          <div class="title has-text-black">Your Profile</div>
+          <div class="field">
+            <button @click="goToProfile" class="button is-success">Profile</button>
+          </div>
+
+          <div class="field">
+            <pre>{{ userChats }}</pre>
+          </div>
+
+          <div class="field">
+            <label for="" class="label">To</label>
+            <div class="control">
+              <input class="input" v-model="target" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="" class="label">Message</label>
+            <div class="control">
+              <input class="input" v-model="message" required />
+            </div>
+          </div>
+          <div class="field">
+            <button @click="addChat" class="button is-success">Send message</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ClientOnly>
 </template>

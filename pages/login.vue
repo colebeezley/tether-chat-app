@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['loggedOut'],
+  middleware: ['loginStatus'],
 })
 let user = reactive({
   email: '',

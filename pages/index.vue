@@ -28,10 +28,10 @@ const signOut = async () => {
           <div class="title has-text-black">Welcome to Tether!</div>
           <div v-if="!firebaseUser">
             <div class="field">
-              <button @click="goToSignup" class="button is-success">Create account</button>
+              <button @click="goToLogin" class="button is-success">Go to login</button>
             </div>
             <div class="field">
-              <button @click="goToLogin" class="button is-success">Go to Login</button>
+              <button @click="goToSignup" class="button is-success">Create account</button>
             </div>
           </div>
           <div v-else="firebaseUser">
